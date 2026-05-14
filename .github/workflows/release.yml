@@ -36,7 +36,8 @@ jobs:
           targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@v2
       - name: Build release binary
-        run: cargo build --release --locked --target ${{ matrix.target }}
+        shell: bash
+        run: $HOME/.cargo/bin/cargo build --release --locked --target ${{ matrix.target }}
       - name: Stage binary
         shell: bash
         run: |
