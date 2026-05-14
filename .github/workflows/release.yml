@@ -31,12 +31,18 @@ jobs:
             bin: ical-mcp.exe
     steps:
       - uses: actions/checkout@v4
-      - name: Remove Homebrew Rust shims
+      - name: Install Rust (macOS)
         if: runner.os == 'macOS'
+        shell: bash
         run: |
           brew uninstall rustup 2>/dev/null || true
-          rm -rf ~/.cargo/bin ~/.rustup 2>/dev/null || true
+          rm -rf ~/.cargo ~/.rustup
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --profile minimal --default-toolchain stable --no-modify-path
+          ~/.cargo/bin/rustup target add ${{ matrix.target }}
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
       - uses: dtolnay/rust-toolchain@stable
+        if: runner.os != 'macOS'
         with:
           targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@v2
