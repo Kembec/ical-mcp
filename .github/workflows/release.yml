@@ -35,7 +35,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew uninstall rustup 2>/dev/null || true
-          rm -f ~/.cargo/bin/cargo ~/.cargo/bin/rustc 2>/dev/null || true
+          rm -rf ~/.cargo/bin ~/.rustup 2>/dev/null || true
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
