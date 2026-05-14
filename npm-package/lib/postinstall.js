@@ -2,11 +2,18 @@
 
 /**
  * Postinstall script - downloads the JAR from GitHub Releases
+ *
+ * Security note: The downloaded JAR is not verified against a pinned checksum
+ * because this fork may be installed directly from source. Instead, the SHA-256
+ * of every download is recorded to a sidecar file (<JAR_PATH>.sha256) for
+ * manual audit. Before running in production, verify this hash against the
+ * upstream GitHub Release or build the JAR locally with `./gradlew fatJar`.
  */
 
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const pkg = require('../package.json');
 const VERSION = pkg.version;
@@ -105,6 +112,25 @@ async function main() {
     if (stats.size < 1000000) {
       throw new Error('Downloaded file is too small, may be corrupted');
     }
+
+    // Warn if the JAR is unexpectedly small for a fat JAR (typically 15–40 MB).
+    // A file under 5 MB likely indicates a partial download or a stub artifact.
+    const MIN_FAT_JAR_BYTES = 5 * 1024 * 1024; // 5 MB
+    if (stats.size < MIN_FAT_JAR_BYTES) {
+      log(`${YELLOW}WARNING: Downloaded JAR is ${(stats.size / 1024 / 1024).toFixed(1)} MB, which is smaller than expected for a fat JAR (>5 MB). Verify the file before use.${RESET}`);
+    }
+
+    // Record SHA-256 of the downloaded JAR to a sidecar file for manual audit.
+    // This does NOT verify against a pinned hash — it creates an audit trail so
+    // you can confirm the same artifact is used across environments.
+    // To verify: compare <JAR>.sha256 against the upstream GitHub Release or
+    // against a locally built JAR (`./gradlew fatJar`).
+    const jarBuffer = fs.readFileSync(JAR_PATH);
+    const sha256 = crypto.createHash('sha256').update(jarBuffer).digest('hex');
+    const sidecarPath = `${JAR_PATH}.sha256`;
+    fs.writeFileSync(sidecarPath, `${sha256}  ${path.basename(JAR_PATH)}\n`);
+    log(`${GREEN}SHA-256 recorded: ${sha256}${RESET}`);
+    log(`Sidecar written to: ${sidecarPath}`);
 
     log(`${GREEN}iCloud Calendar MCP Server installed successfully!${RESET}`);
     log(`\nUsage: npx @icloud-calendar-mcp/server --help`);

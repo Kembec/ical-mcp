@@ -4,6 +4,10 @@
 
 <h1 align="center">iCloud Calendar MCP Server</h1>
 
+> **kembec/ical-mcp** is a security-hardened fork of [icloud-calendar-mcp/icloud-calendar-mcp](https://github.com/icloud-calendar-mcp/icloud-calendar-mcp), published on npm as [`@icloud-calendar-mcp/server`](https://www.npmjs.com/package/@icloud-calendar-mcp/server).  
+> All credit for the original Kotlin implementation, CalDAV integration, and credential masking goes to the upstream authors.  
+> This fork adds: JAR integrity verification (SHA-256 sidecar), explicit production safety warnings, and [OpenClaw](https://openclaw.ai) compatibility. See [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) and [OPENCLAW.md](./OPENCLAW.md).
+
 [![Build](https://github.com/icloud-calendar-mcp/icloud-calendar-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/icloud-calendar-mcp/icloud-calendar-mcp/actions/workflows/test.yml)
 [![npm](https://img.shields.io/npm/v/@icloud-calendar-mcp/server.svg)](https://www.npmjs.com/package/@icloud-calendar-mcp/server)
 [![PyPI](https://img.shields.io/pypi/v/icloud-calendar-mcp.svg)](https://pypi.org/project/icloud-calendar-mcp/)
