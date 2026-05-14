@@ -31,13 +31,18 @@ jobs:
             bin: ical-mcp.exe
     steps:
       - uses: actions/checkout@v4
+      - name: Remove Homebrew Rust shims
+        if: runner.os == 'macOS'
+        run: |
+          brew uninstall rustup 2>/dev/null || true
+          rm -f ~/.cargo/bin/cargo ~/.cargo/bin/rustc 2>/dev/null || true
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@v2
       - name: Build release binary
         shell: bash
-        run: $HOME/.cargo/bin/cargo build --release --locked --target ${{ matrix.target }}
+        run: cargo build --release --locked --target ${{ matrix.target }}
       - name: Stage binary
         shell: bash
         run: |
