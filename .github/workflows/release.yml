@@ -17,7 +17,7 @@ jobs:
             target: aarch64-apple-darwin
             platform_dir: npm-darwin-arm64
             bin: ical-mcp
-          - os: macos-13
+          - os: macos-latest
             target: x86_64-apple-darwin
             platform_dir: npm-darwin-x64
             bin: ical-mcp
