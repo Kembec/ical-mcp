@@ -1,0 +1,14 @@
+{
+  "name": "@kembec/ical-mcp-linux-x64",
+  "version": "0.1.0",
+  "description": "ical-mcp binary for linux x64",
+  "os": ["linux"],
+  "cpu": ["x64"],
+  "bin": { "ical-mcp": "bin/ical-mcp" },
+  "files": ["bin/ical-mcp"],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kembec/ical-mcp.git"
+  }
+}

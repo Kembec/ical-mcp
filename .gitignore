@@ -1,10 +1,10 @@
-# Gradle
-.gradle/
-build/
-!gradle/wrapper/gradle-wrapper.jar
+# Rust
+/target
+Cargo.lock
 
 # IDE
 .idea/
+.vscode/
 *.iml
 *.ipr
 *.iws
@@ -14,18 +14,9 @@ build/
 Thumbs.db
 
 # Local config
-local.properties
 .env
 .env.*
 *.env
-
-# Claude Code / AI assistant files
-CLAUDE.md
-.claude/
-
-# Internal documentation (references private repos)
-IMPLEMENTATION_PLAN.md
-docs/
 
 # Credentials (never commit)
 credentials.json
@@ -33,17 +24,9 @@ secrets.json
 *.pem
 *.key
 
-# Test artifacts
-test-mcp.sh
-test-caldav.sh
-test-live.kt
-test-manual.sh
-test-mcp-client.js
-
-# npm/Python package build artifacts
-npm-package/lib/*.jar
-py-package/dist/
-py-package/.venv/
-py-package/*.egg-info/
-__pycache__/
-*.pyc
+# npm build artifacts (binaries are produced by CI)
+npm-darwin-arm64/bin/ical-mcp
+npm-darwin-x64/bin/ical-mcp
+npm-linux-x64/bin/ical-mcp
+npm-win32-x64/bin/ical-mcp.exe
+node_modules/

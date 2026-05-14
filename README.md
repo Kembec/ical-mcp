@@ -1,46 +1,77 @@
 # ical-mcp
 
-MCP server for iCloud Calendar via CalDAV. Fork of `@icloud-calendar-mcp/server` with JAR integrity verification and OpenClaw support.
+A Model Context Protocol server for iCloud Calendar, written in Rust.
 
-This fork adds: SHA-256 verification of the JAR on install (`.sha256` sidecar), size warning if the download looks wrong, and a ready-to-use OpenClaw config. See [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) and [OPENCLAW.md](./OPENCLAW.md).
+It talks CalDAV directly to `caldav.icloud.com`, exposes five tools over
+JSON-RPC on stdio, and ships as a single static binary — no JVM, no Python
+runtime, no daemons.
 
-Requires Java 17+.
+## Prerequisites
+
+- An Apple ID
+- An [app-specific password](https://appleid.apple.com/account/manage) for
+  that Apple ID (regular Apple ID passwords will not work with CalDAV)
 
 ## Installation
+
+```bash
+npm install -g @kembec/ical-mcp
+```
+
+Or run with `npx`:
 
 ```bash
 npx @kembec/ical-mcp
 ```
 
-Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+## Configuration
+
+Set two environment variables before launching the server:
+
+```bash
+export ICLOUD_USERNAME="you@icloud.com"
+export ICLOUD_PASSWORD="xxxx-xxxx-xxxx-xxxx"   # app-specific password
+```
+
+Wire it into your MCP client (e.g. Claude Desktop) by adding an entry like:
 
 ```json
 {
   "mcpServers": {
-    "icloud-calendar": {
+    "ical": {
       "command": "npx",
-      "args": ["@kembec/ical-mcp"],
+      "args": ["-y", "@kembec/ical-mcp"],
       "env": {
-        "ICLOUD_USERNAME": "your-apple-id@icloud.com",
-        "ICLOUD_PASSWORD": "app-specific-password"
+        "ICLOUD_USERNAME": "you@icloud.com",
+        "ICLOUD_PASSWORD": "xxxx-xxxx-xxxx-xxxx"
       }
     }
   }
 }
 ```
 
-Use an app-specific password, not your Apple ID password. Generate one at [appleid.apple.com](https://appleid.apple.com) → Security → App-Specific Passwords.
-
 ## Tools
 
-`list_calendars` · `get_events` · `create_event` · `update_event` · `delete_event`
+- **list-calendars** — list every calendar in the account.
+- **get-events** — `calendar_id`, `start_date`, `end_date` (YYYY-MM-DD).
+- **create-event** — `calendar_id`, `title`, then either `start_time`/`end_time`
+  (ISO 8601) for timed events or `start_date`/`end_date` with `all_day: true`
+  for all-day events. Optional: `description`, `location`, `timezone`.
+- **update-event** — `event_id` (UID or full URL) plus any of `title`,
+  `start_time`, `end_time`, `description`, `location`.
+- **delete-event** — `event_id` (UID or full URL).
 
-For OpenClaw see [OPENCLAW.md](./OPENCLAW.md).
+`calendar_id` accepts either the calendar's display name or its full CalDAV
+URL. `event_id` accepts the iCalendar UID or the resource URL returned by
+`create-event`.
+
+## Building from source
+
+```bash
+cargo build --release
+./target/release/ical-mcp
+```
 
 ## License
 
-Apache 2.0
-
-## Credits
-
-Original project: [icloud-calendar-mcp/icloud-calendar-mcp](https://github.com/icloud-calendar-mcp/icloud-calendar-mcp), published as [`@icloud-calendar-mcp/server`](https://www.npmjs.com/package/@icloud-calendar-mcp/server) and [`icloud-calendar-mcp`](https://pypi.org/project/icloud-calendar-mcp/) on PyPI. All credit for the Kotlin implementation, CalDAV integration, and credential masking goes to the upstream authors.
+Apache-2.0
