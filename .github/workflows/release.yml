@@ -57,7 +57,7 @@ jobs:
     needs: release
     environment:
       name: npm
-      url: https://www.npmjs.com/package/@icloud-calendar-mcp/server
+      url: https://www.npmjs.com/package/@kembec/ical-mcp
 
     steps:
       - name: Checkout
@@ -86,7 +86,7 @@ jobs:
         run: |
           mkdir -p lib
           curl -L -o lib/icloud-calendar-mcp-${{ steps.version.outputs.version }}-all.jar \
-            https://github.com/icloud-calendar-mcp/icloud-calendar-mcp/releases/download/v${{ steps.version.outputs.version }}/icloud-calendar-mcp-${{ steps.version.outputs.version }}-all.jar
+            https://github.com/Kembec/ical-mcp/releases/download/v${{ steps.version.outputs.version }}/icloud-calendar-mcp-${{ steps.version.outputs.version }}-all.jar
 
       - name: Strip stale auth from .npmrc (OIDC handles auth)
         # actions/setup-node writes `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}`

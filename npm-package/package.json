@@ -1,5 +1,5 @@
 {
-  "name": "@icloud-calendar-mcp/server",
+  "name": "@kembec/ical-mcp",
   "version": "3.0.1",
   "mcpName": "org.onekash/icloud-calendar-mcp",
   "description": "MCP server for iCloud Calendar access via CalDAV",
@@ -10,7 +10,9 @@
     "calendar",
     "caldav",
     "claude",
-    "ai"
+    "ai",
+    "openclaw",
+    "model-context-protocol"
   ],
   "author": "Onekash Labs",
   "license": "Apache-2.0",
