@@ -1,6 +1,6 @@
 {
   "name": "@kembec/ical-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for iCloud Calendar",
   "bin": { "ical-mcp": "./index.js" },
   "main": "./index.js",
