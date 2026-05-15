@@ -83,6 +83,12 @@ jobs:
             cp -r "artifacts/$d/bin/." "$d/bin/"
             ls -la "$d/bin"
           done
+      - name: Add README to packages
+        run: |
+          cp README.md npm/README.md
+          for d in npm-darwin-arm64 npm-darwin-x64 npm-linux-x64 npm-win32-x64; do
+            cp README.md "$d/README.md"
+          done
       - name: Publish platform packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

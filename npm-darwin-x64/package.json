@@ -5,7 +5,7 @@
   "os": ["darwin"],
   "cpu": ["x64"],
   "bin": { "ical-mcp": "bin/ical-mcp" },
-  "files": ["bin/ical-mcp"],
+  "files": ["bin/ical-mcp", "README.md"],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
