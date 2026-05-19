@@ -310,6 +310,14 @@ async fn resolve_event_url(
     if event_id.starts_with("http://") || event_id.starts_with("https://") {
         return Ok(event_id.to_string());
     }
+    if !event_id
+        .chars()
+        .all(|c| c.is_alphanumeric() || matches!(c, '-' | '_' | '.' | '@' | '+'))
+    {
+        return Err(anyhow!(
+            "event_id contains invalid characters; expected alphanumeric or - _ . @ +"
+        ));
+    }
     let calendar_id = require_str(args, "calendar_id")
         .context("calendar_id is required when event_id is a UID, not a URL")?;
     let cal = resolve_calendar(client, calendar_id).await?;

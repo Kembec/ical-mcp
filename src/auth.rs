@@ -1,16 +1,23 @@
 use anyhow::{anyhow, Result};
 use base64::{engine::general_purpose::STANDARD as B64, Engine as _};
+use std::fmt;
 
-/// iCloud CalDAV credentials. Authentication is app-specific password
-/// (Apple ID + an app-specific password generated at appleid.apple.com).
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Credentials {
     pub username: String,
     pub password: String,
 }
 
+impl fmt::Debug for Credentials {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Credentials")
+            .field("username", &self.username)
+            .field("password", &"[REDACTED]")
+            .finish()
+    }
+}
+
 impl Credentials {
-    /// Construct from explicit values. Both must be non-empty.
     pub fn new(username: impl Into<String>, password: impl Into<String>) -> Result<Self> {
         let username = username.into();
         let password = password.into();
@@ -24,7 +31,6 @@ impl Credentials {
     }
 }
 
-/// Load credentials from `ICLOUD_USERNAME` and `ICLOUD_PASSWORD` env vars.
 pub fn load() -> Result<Credentials> {
     let username = std::env::var("ICLOUD_USERNAME")
         .map_err(|_| anyhow!("ICLOUD_USERNAME environment variable is not set"))?;
@@ -37,7 +43,6 @@ pub fn load() -> Result<Credentials> {
     Credentials::new(username, password)
 }
 
-/// Build a `Basic <base64>` Authorization header value.
 pub fn basic_auth_header(creds: &Credentials) -> String {
     let raw = format!("{}:{}", creds.username, creds.password);
     format!("Basic {}", B64.encode(raw.as_bytes()))

@@ -1,5 +1,8 @@
 # ical-mcp
 
+[![npm](https://img.shields.io/npm/v/@kembec/ical-mcp)](https://www.npmjs.com/package/@kembec/ical-mcp)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
 A Model Context Protocol server for iCloud Calendar, written in Rust.
 
 It talks CalDAV directly to `caldav.icloud.com`, exposes five tools over
@@ -33,7 +36,30 @@ export ICLOUD_USERNAME="you@icloud.com"
 export ICLOUD_PASSWORD="xxxx-xxxx-xxxx-xxxx"   # app-specific password
 ```
 
-Wire it into your MCP client (e.g. Claude Desktop) by adding an entry like:
+Credentials are read at startup and never written to disk.
+
+### Cursor
+
+Add to your `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "ical": {
+      "command": "npx",
+      "args": ["-y", "@kembec/ical-mcp"],
+      "env": {
+        "ICLOUD_USERNAME": "you@icloud.com",
+        "ICLOUD_PASSWORD": "xxxx-xxxx-xxxx-xxxx"
+      }
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
 
 ```json
 {
