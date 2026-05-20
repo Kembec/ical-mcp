@@ -5,6 +5,7 @@ const PLATFORMS = {
   'darwin-arm64': '@kembec/ical-mcp-darwin-arm64',
   'darwin-x64': '@kembec/ical-mcp-darwin-x64',
   'linux-x64': '@kembec/ical-mcp-linux-x64',
+  'linux-arm64': '@kembec/ical-mcp-linux-arm64',
   'win32-x64': '@kembec/ical-mcp-win32-x64',
 };
 
