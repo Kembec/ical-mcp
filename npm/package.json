@@ -2,20 +2,34 @@
   "name": "@kembec/ical-mcp",
   "version": "0.1.2",
   "description": "MCP server for iCloud Calendar",
-  "bin": { "ical-mcp": "./index.js" },
+  "bin": {
+    "ical-mcp": "./index.js"
+  },
   "main": "./index.js",
-  "files": ["index.js", "README.md"],
+  "files": [
+    "index.js",
+    "README.md"
+  ],
   "optionalDependencies": {
     "@kembec/ical-mcp-darwin-arm64": "0.1.2",
     "@kembec/ical-mcp-darwin-x64": "0.1.2",
     "@kembec/ical-mcp-linux-x64": "0.1.2",
+    "@kembec/ical-mcp-linux-arm64": "0.1.2",
     "@kembec/ical-mcp-win32-x64": "0.1.2"
   },
-  "engines": { "node": ">=18" },
-  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kembec/ical-mcp.git"
   },
-  "keywords": ["mcp", "icloud", "calendar", "caldav", "model-context-protocol"]
+  "keywords": [
+    "mcp",
+    "icloud",
+    "calendar",
+    "caldav",
+    "model-context-protocol"
+  ]
 }

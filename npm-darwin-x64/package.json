@@ -2,11 +2,20 @@
   "name": "@kembec/ical-mcp-darwin-x64",
   "version": "0.1.2",
   "description": "ical-mcp binary for darwin x64",
-  "os": ["darwin"],
-  "cpu": ["x64"],
-  "bin": { "ical-mcp": "bin/ical-mcp" },
-  "files": ["bin/ical-mcp", "README.md"],
-  "license": "Apache-2.0",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "bin": {
+    "ical-mcp": "bin/ical-mcp"
+  },
+  "files": [
+    "bin/ical-mcp",
+    "README.md"
+  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kembec/ical-mcp.git"

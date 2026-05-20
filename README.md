@@ -1,7 +1,7 @@
 # ical-mcp
 
 [![npm](https://img.shields.io/npm/v/@kembec/ical-mcp)](https://www.npmjs.com/package/@kembec/ical-mcp)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A Model Context Protocol server for iCloud Calendar, written in Rust.
 
@@ -76,6 +76,21 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
+### Codex CLI
+
+Add to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.ical]
+command = "npx"
+args = ["-y", "@kembec/ical-mcp"]
+enabled = true
+
+[mcp_servers.ical.env]
+ICLOUD_USERNAME = "you@icloud.com"
+ICLOUD_PASSWORD = "xxxx-xxxx-xxxx-xxxx"
+```
+
 ## Tools
 
 - **list-calendars** — list every calendar in the account.
@@ -100,4 +115,4 @@ cargo build --release
 
 ## License
 
-Apache-2.0
+MIT

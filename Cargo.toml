@@ -3,7 +3,7 @@ name = "ical-mcp"
 version = "0.1.2"
 edition = "2021"
 description = "MCP server for iCloud Calendar"
-license = "Apache-2.0"
+license = "MIT"
 
 [[bin]]
 name = "ical-mcp"

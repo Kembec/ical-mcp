@@ -2,11 +2,19 @@
   "name": "@kembec/ical-mcp-win32-x64",
   "version": "0.1.2",
   "description": "ical-mcp binary for win32 x64",
-  "os": ["win32"],
-  "cpu": ["x64"],
-  "bin": { "ical-mcp": "bin/ical-mcp.exe" },
-  "files": ["bin/ical-mcp.exe"],
-  "license": "Apache-2.0",
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "bin": {
+    "ical-mcp": "bin/ical-mcp.exe"
+  },
+  "files": [
+    "bin/ical-mcp.exe"
+  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kembec/ical-mcp.git"
