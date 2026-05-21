@@ -1,6 +1,6 @@
 {
   "name": "@kembec/ical-mcp",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "MCP server for iCloud Calendar",
   "bin": {
     "ical-mcp": "./index.js"
@@ -8,14 +8,15 @@
   "main": "./index.js",
   "files": [
     "index.js",
-    "README.md"
+    "README.md",
+    "smithery.yaml"
   ],
   "optionalDependencies": {
-    "@kembec/ical-mcp-darwin-arm64": "0.1.4",
-    "@kembec/ical-mcp-darwin-x64": "0.1.4",
-    "@kembec/ical-mcp-linux-x64": "0.1.4",
-    "@kembec/ical-mcp-linux-arm64": "0.1.4",
-    "@kembec/ical-mcp-win32-x64": "0.1.4"
+    "@kembec/ical-mcp-darwin-arm64": "0.1.5",
+    "@kembec/ical-mcp-darwin-x64": "0.1.5",
+    "@kembec/ical-mcp-linux-x64": "0.1.5",
+    "@kembec/ical-mcp-linux-arm64": "0.1.5",
+    "@kembec/ical-mcp-win32-x64": "0.1.5"
   },
   "engines": {
     "node": ">=18"

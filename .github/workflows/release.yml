@@ -22,11 +22,11 @@ jobs:
             platform_dir: npm-darwin-x64
             bin: ical-mcp
           - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
+            target: x86_64-unknown-linux-musl
             platform_dir: npm-linux-x64
             bin: ical-mcp
           - os: ubuntu-22.04
-            target: aarch64-unknown-linux-gnu
+            target: aarch64-unknown-linux-musl
             platform_dir: npm-linux-arm64
             bin: ical-mcp
           - os: windows-latest
@@ -49,16 +49,21 @@ jobs:
         if: runner.os != 'macOS'
         with:
           targets: ${{ matrix.target }}
-      - name: Install aarch64 cross-linker
-        if: matrix.target == 'aarch64-unknown-linux-gnu'
-        run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu
+      - name: Install musl tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+          if [[ "${{ matrix.target }}" == "aarch64-unknown-linux-musl" ]]; then
+            sudo apt-get install -y gcc-aarch64-linux-gnu
+            echo '[target.aarch64-unknown-linux-musl]' >> ~/.cargo/config.toml
+            echo 'linker = "aarch64-linux-gnu-gcc"' >> ~/.cargo/config.toml
+          fi
       - uses: Swatinem/rust-cache@v2
       - name: Build release binary
         shell: bash
         run: |
           cargo build --release --locked --target ${{ matrix.target }}
-        env:
-          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
       - name: Stage binary
         shell: bash
         run: |

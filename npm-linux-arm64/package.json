@@ -1,6 +1,6 @@
 {
   "name": "@kembec/ical-mcp-linux-arm64",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "ical-mcp binary for linux arm64",
   "os": [
     "linux"
