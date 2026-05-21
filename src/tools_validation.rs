@@ -34,10 +34,8 @@ pub fn validate_create_event(args: &Value) -> Result<()> {
         require_str(args, "start_date")
             .map_err(|_| anyhow!("all-day events require start_date"))?;
     } else {
-        require_str(args, "start_time")
-            .map_err(|_| anyhow!("timed events require start_time"))?;
-        require_str(args, "end_time")
-            .map_err(|_| anyhow!("timed events require end_time"))?;
+        require_str(args, "start_time").map_err(|_| anyhow!("timed events require start_time"))?;
+        require_str(args, "end_time").map_err(|_| anyhow!("timed events require end_time"))?;
     }
     Ok(())
 }

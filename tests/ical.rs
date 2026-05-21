@@ -113,11 +113,9 @@ fn test_normalize_datetime_variants() {
         "20240405T090000Z"
     );
     // Offset is dropped.
-    assert!(
-        ical::normalize_datetime("2024-04-05T09:00:00-05:00")
-            .unwrap()
-            .ends_with('Z')
-    );
+    assert!(ical::normalize_datetime("2024-04-05T09:00:00-05:00")
+        .unwrap()
+        .ends_with('Z'));
 }
 
 #[test]

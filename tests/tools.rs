@@ -95,13 +95,11 @@ fn test_update_event_requires_event_id() {
 
 #[test]
 fn test_update_event_requires_some_field() {
-    let err =
-        tools_validation::validate_update_event(&json!({"event_id": "u-1"})).unwrap_err();
+    let err = tools_validation::validate_update_event(&json!({"event_id": "u-1"})).unwrap_err();
     assert!(format!("{err}").contains("at least one"));
 }
 
 #[test]
 fn test_update_event_ok_with_title() {
-    tools_validation::validate_update_event(&json!({"event_id": "u-1", "title": "New"}))
-        .unwrap();
+    tools_validation::validate_update_event(&json!({"event_id": "u-1", "title": "New"})).unwrap();
 }

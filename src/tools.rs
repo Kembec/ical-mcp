@@ -116,7 +116,9 @@ pub fn require_str<'a>(args: &'a Value, key: &str) -> Result<&'a str> {
 }
 
 fn optional_str<'a>(args: &'a Value, key: &str) -> Option<&'a str> {
-    args.get(key).and_then(|v| v.as_str()).filter(|s| !s.is_empty())
+    args.get(key)
+        .and_then(|v| v.as_str())
+        .filter(|s| !s.is_empty())
 }
 
 fn optional_bool(args: &Value, key: &str) -> Option<bool> {
@@ -173,15 +175,11 @@ async fn create_event(state: &Arc<ServerState>, args: &Value) -> Result<Value> {
     let all_day = optional_bool(args, "all_day").unwrap_or(false);
 
     let (start, end) = if all_day {
-        let s = require_str(args, "start_date").context(
-            "all-day events require `start_date`",
-        )?;
+        let s = require_str(args, "start_date").context("all-day events require `start_date`")?;
         let e = optional_str(args, "end_date").unwrap_or(s);
         (s.to_string(), e.to_string())
     } else {
-        let s = require_str(args, "start_time").context(
-            "timed events require `start_time`",
-        )?;
+        let s = require_str(args, "start_time").context("timed events require `start_time`")?;
         let e = require_str(args, "end_time").context("timed events require `end_time`")?;
         (s.to_string(), e.to_string())
     };
@@ -302,11 +300,7 @@ async fn resolve_calendar(client: &CalDavClient, id: &str) -> Result<Calendar> {
         .ok_or_else(|| anyhow!("no calendar matching `{id}`"))
 }
 
-async fn resolve_event_url(
-    client: &CalDavClient,
-    args: &Value,
-    event_id: &str,
-) -> Result<String> {
+async fn resolve_event_url(client: &CalDavClient, args: &Value, event_id: &str) -> Result<String> {
     if event_id.starts_with("http://") || event_id.starts_with("https://") {
         return Ok(event_id.to_string());
     }

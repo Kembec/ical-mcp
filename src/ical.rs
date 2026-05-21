@@ -6,6 +6,8 @@
 
 use anyhow::{anyhow, Result};
 
+type ContentLine = Option<(String, Vec<(String, String)>, String)>;
+
 /// A parsed VEVENT.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ParsedEvent {
@@ -77,7 +79,7 @@ fn fold_line(line: &str) -> String {
 }
 
 /// Split a content line into `(name, params, value)` per RFC 5545 §3.1.
-fn split_content_line(line: &str) -> Option<(String, Vec<(String, String)>, String)> {
+fn split_content_line(line: &str) -> ContentLine {
     let colon = line.find(':')?;
     let head = &line[..colon];
     let value = line[colon + 1..].to_string();
@@ -254,6 +256,7 @@ pub fn normalize_date(input: &str) -> Result<String> {
 }
 
 /// Build a complete VCALENDAR/VEVENT document.
+#[allow(clippy::too_many_arguments)]
 pub fn build_vevent(
     uid: &str,
     summary: &str,
