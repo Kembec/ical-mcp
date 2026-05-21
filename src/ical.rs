@@ -466,7 +466,7 @@ mod tests {
         assert_eq!(ev.uid, "abc-123");
         assert_eq!(ev.summary, "Hello");
         assert_eq!(ev.start, "20240115T130000Z");
-        assert_eq!(ev.all_day, false);
+        assert!(!ev.all_day);
     }
 
     #[test]

@@ -1,0 +1,23 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      ICLOUD_USERNAME:
+        type: string
+        description: "Your Apple ID (e.g. you@icloud.com)"
+      ICLOUD_PASSWORD:
+        type: string
+        description: "App-specific password from appleid.apple.com → Sign-In & Security → App-Specific Passwords"
+    required:
+      - ICLOUD_USERNAME
+      - ICLOUD_PASSWORD
+  commandFunction: |
+    (config) => ({
+      command: "npx",
+      args: ["-y", "@kembec/ical-mcp"],
+      env: {
+        ICLOUD_USERNAME: config.ICLOUD_USERNAME,
+        ICLOUD_PASSWORD: config.ICLOUD_PASSWORD
+      }
+    })
